@@ -1,0 +1,103 @@
+<?php
+
+/**
+ *  Written By @Ngonyoku
+ *___________________________________________________________________________________________________________________
+ *          Validation Class
+ * This Class is Used to Perform Basic form validation Operations.
+ * ------------------------------------------------------------------------------------------------------------------
+ *      Regular Expressions
+ *  1.  "/^[a-zA-Z\s\.\d]+$/" - Only lowercase, uppercase, whitespaces, numbers and period(.)
+ *  2.  "/^[a-zA-Z\d\._]+@[a-zA-Z\d\._]+\.[a-zA-Z\d\.]{2,}+$/" - Email Address
+ *  3.  "/^(\+254|0)\d{9}$/" - Kenyan Phone Number
+ *  4.  "/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i" - Website
+ *  5.  "/^[a-zA-Z ]*$/" - letters and whitespace
+ *___________________________________________________________________________________________________________________
+ * */
+
+class Validation
+{
+    private $_passed = false,
+        $_dbh = null,
+        $_error = array();
+
+    public function __construct()
+    {
+        $this->_dbh = DataBaseHandler::getInstance();
+    }
+
+    public function validate($source, $items = array())
+    {
+        foreach ($items as $item => $rules) {
+            foreach ($rules as $rule => $rule_value) {
+
+                $value = trim($source[$item]);
+
+                if ($rule === 'required' && empty($value)) {
+                    $this->addError("emptyError", " {$item} Cannot Be Empty! ");
+                } elseif (!empty($value)) {
+                    switch ($rule) {
+                        case 'min': #Checks if input is below the Minimum value specified.
+                            if (strlen($value) < $rule_value) {
+                                $this->addError("minError", "{$item} must be a minimum of {$rule_value} characters");
+                            }
+                            break;
+                        case 'max': #Checks if input is below the Maximum value specified.
+                            if (strlen($value) > $rule_value) {
+                                $this->addError("maxError", "{$item} shouldn't exceed {$rule_value} characters");
+                            }
+                            break;
+                        case 'matches': #Checks if input value matches the specified value.
+                            if ($value != $source[$rule_value]) {
+                                $this->addError("matchError", "{$item} Must Match {$rule_value}");
+                            }
+                            break;
+                        case 'unique': #Checks if input value is Unique in database.
+                            $check = $this->_db->get($rule_value, array($item, '=', $value));
+                            if ($check->count()) {
+                                $this->addError('exists', "Username is taken");
+                            }
+                    }
+                }
+            }
+        }
+
+        if (empty($this->_error)) {
+            $this->_passed = true;
+        }
+
+        return $this;
+    }
+
+    //The method is Used to Sanitize and Validate Email Addresses.
+    public function validEmail($email)
+    {
+        $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+        if (empty($email)) {
+            $this->addError("emailError", " Email is Required ");
+        } elseif (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
+            $this->addError("emailError", " Invalid Email Address ");
+        } elseif (empty($this->_error)) {
+            return $this->_passed = true;
+        }
+        return $this;
+    }
+
+    //The method stores errors Encountered
+    private function addError($errorName, $errorValue)
+    {
+        return $this->_error[$errorName] = $errorValue;
+    }
+
+    //This method returns errors Encountered
+    public function error()
+    {
+        return $this->_error;
+    }
+
+    //This method returns the state of the validation
+    public function passed()
+    {
+        return $this->_passed;
+    }
+}
