@@ -33,3 +33,14 @@ spl_autoload_register(function ($class) {
 
 require_once 'Functions/Sanitize.php';
 require_once 'Functions/displayErrors.php';
+
+$session = Config::get('session/session_name');
+$cookie = Config::get('remember/cookie_name');
+if (!Session::exists($session) && Cookie::exists($cookie)) {
+    $hash = $cookie;
+    $hashCheck = DataBaseHandler::getInstance()->selectAll('users_session', array('hash', '=', $hash));
+    if ($hashCheck->count()) {
+        $user = new Auth($hashCheck->first()->user_id);
+        $user->logIn();
+    }
+}

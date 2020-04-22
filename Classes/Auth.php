@@ -61,8 +61,16 @@ class Auth extends User
     //The Method registers Users into the System.
     public function register($fields = array())
     {
-        if (!$this->_dbh->insert('users', $fields)) {
-            throw new Exception(" Unable To create Account");
+        foreach ($fields as $key => $value) {
+            if ($key === "member_number") {
+                $checkMemberExistence = $this->_dbh->selectAll('members', array('member_number', '=', $value));
+                if ($checkMemberExistence->count()) {
+                    if (!$this->_dbh->insert('users', $fields)) {
+                        throw new Exception(" Unable To create Account");
+                    }
+                } else {
+                }
+            }
         }
     }
 

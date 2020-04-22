@@ -28,40 +28,46 @@ class Validation
 
     public function validate($source, $items = array())
     {
-        foreach ($items as $item => $rules) {
-            foreach ($rules as $rule => $rule_value) {
+        foreach ($items as $item => $rule) {
+            foreach ($rule as $rule => $rule_value) {
 
                 $value = trim($source[$item]);
 
                 if ($rule === 'required' && empty($value)) {
-                    $this->addError("emptyError", " {$item} Cannot Be Empty! ");
+                    $this->addError('empty', "{$item} Cannot Be Empty");
                 } elseif (!empty($value)) {
+                    
                     switch ($rule) {
-                        case 'min': #Checks if input is below the Minimum value specified.
+                        case 'min':
+                            #Checks if input is below the Minimum value specified.
                             if (strlen($value) < $rule_value) {
-                                $this->addError("minError", "{$item} must be a minimum of {$rule_value} characters");
+                                $this->addError("minError", "{$item} must have a minimum of {$rule_value} characters");
                             }
                             break;
-                        case 'max': #Checks if input is below the Maximum value specified.
+                        case 'max':
+                            #Checks if input is above the Maximum value specified.
                             if (strlen($value) > $rule_value) {
-                                $this->addError("maxError", "{$item} shouldn't exceed {$rule_value} characters");
+                                $this->addError("minError", "{$item} must have a minimum of {$rule_value} characters");
                             }
                             break;
-                        case 'matches': #Checks if input value matches the specified value.
+                        case 'matches':
+                            #Checks if input value matches the specified value.
                             if ($value != $source[$rule_value]) {
-                                $this->addError("matchError", "{$item} Must Match {$rule_value}");
+                                $this->addError('matchError', "{$item} must Match {$rule_value}");
                             }
                             break;
-                        case 'unique': #Checks if input value is Unique in database.
-                            $check = $this->_db->get($rule_value, array($item, '=', $value));
+                        case 'unique':
+                            #Checks if input value is Unique in database.
+                            $check = $this->_dbh->selectAll($rule_value, array($item, '=', $value));
                             if ($check->count()) {
-                                $this->addError('exists', "Username is taken");
+                                $this->addError('existError', "{$item} Exists!");
                             }
                     }
                 }
             }
         }
 
+        #If the $_error variable is empty(meaning no errors were registered), then Validation has been passed.
         if (empty($this->_error)) {
             $this->_passed = true;
         }
