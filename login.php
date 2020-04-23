@@ -5,23 +5,19 @@ if (Input::exists()) {
     if (Token::check(Input::get('token'))) {
         $valid = new Validation();
         $valid->validate($_POST, array(
-            'member_number' => array('required' => true, 'min' => 12, 'max' => 15, 'unique' => 'users'),
-            'password' => array('required' => true, 'min' => 6, 'max' => 30),
-            'confirmPassword' => array('required' => true, 'matches' => 'password')
+            'member_number' => array('required' => true),
+            'password' => array('required' => true)
         ));
 
         if ($valid->passed()) {
             $user = new Auth();
-            try {
-                $user->register(array(
-                    'member_number' => Input::get('member_number'),
-                    'password' => password_hash(Input::get('password'), PASSWORD_DEFAULT),
-                    'date_joined' => date("Y-m-d h:m:a")
-                ));
-                Session::flash('Home', "Registration Was Successful");
-                Redirect::to('index.php');
-            } catch (Exception $e) {
-                die($e->getMessage());
+            $remember = (Input::get('remember') === 'on') ? true : false;
+            $memberNumber = Input::get('member_number');
+            $password = Input::get('password');
+            $user->logIn($memberNumber, $password, $remember);
+
+            if ($user) {
+                Redirect::to("index.php");
             }
         } else {
             foreach ($valid->error() as $errName => $errValue) {
@@ -33,7 +29,7 @@ if (Input::exists()) {
 ?>
 <div>
     <form action="" method="POST">
-        <h2>Create Accounnt</h2>
+        <h2>Login</h2>
         <div>
             <label for="member_number">Identification Number</label>
             <input type="text" name="member_number" id="member_number" value="<?php echo escape(Input::get('member_number')); ?>">
@@ -43,15 +39,14 @@ if (Input::exists()) {
             <label for="password">Password</label>
             <input type="password" name="password" id="password">
         </div>
-        <br>
         <div>
-            <label for="confirmPassword">Confirm Password</label>
-            <input type="password" name="confirmPassword" id="confirmPassword">
+            <label for="remember">
+                <input type="checkbox" name="remember" id="remember"> Remember Me
+            </label>
         </div>
+        <br>
         <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
         <input type="submit" name="submit" value="SUBMIT">
     </form>
 </div>
-<?php
-include 'Includes/Footer.php';
-?>
+<?php include 'Includes/Footer.php'; ?>

@@ -14,7 +14,7 @@ class Session
         return $_SESSION[$name] = $value;
     }
 
-    //This method returns the session with the name specified
+    //This method returns the value of the session with the name passed.
     public static function get($name)
     {
         return $_SESSION[$name];

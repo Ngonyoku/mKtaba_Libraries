@@ -36,7 +36,7 @@ class Validation
                 if ($rule === 'required' && empty($value)) {
                     $this->addError('empty', "{$item} Cannot Be Empty");
                 } elseif (!empty($value)) {
-                    
+
                     switch ($rule) {
                         case 'min':
                             #Checks if input is below the Minimum value specified.
