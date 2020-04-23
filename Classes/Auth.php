@@ -84,34 +84,38 @@ class Auth extends User
 
     public function logIn($memberNumber = null, $password = null, $remember = false)
     {
-        $user = $this->find($memberNumber); #Check if the user exists.
-        if ($user) {
-            if (password_verify($password, $this->data()->password)) {
-                Session::set($this->_sessionName, $this->data()->user_id); #Start the session
-                if ($remember) {
-                    #Generate a hash key and Confirm if the user has been recorded in the "users_session" table
-                    $hash = Hash::unique();
-                    $hashCheck = $this->_dbh->selectAll('users_session', array('user_id', '=', $this->data()->user_id));
+        if (!$memberNumber && !$password && $this->exists()) {
+            Session::set($this->_sessionName, $this->data()->user_id);
+        } else {
+            $user = $this->find($memberNumber); #Check if the user exists.
+            if ($user) {
+                if (password_verify($password, $this->data()->password)) {
+                    Session::set($this->_sessionName, $this->data()->user_id); #Start the session
+                    if ($remember) {
+                        #Generate a hash key and Confirm if the user has been recorded in the "users_session" table
+                        $hash = Hash::unique();
+                        $hashCheck = $this->_dbh->selectAll('users_session', array('user_id', '=', $this->data()->user_id));
 
-                    #if session has not been recorded in Database(i.e in the "users_session" table), we record the session.
-                    if (!$hashCheck->count()) {
-                        $this->_dbh->insert('users_session', array(
-                            'user_id' => $this->data()->user_id,
-                            'hash' => $hash
-                        ));
-                    } else {
-                        #...else if the session is recorded, the value of the hash is set to the existent hash in the database.
-                        $hash = $hashCheck->first()->hash;
+                        #if session has not been recorded in Database(i.e in the "users_session" table), we record the session.
+                        if (!$hashCheck->count()) {
+                            $this->_dbh->insert('users_session', array(
+                                'user_id' => $this->data()->user_id,
+                                'hash' => $hash
+                            ));
+                        } else {
+                            #...else if the session is recorded, the value of the hash is set to the existent hash in the database.
+                            $hash = $hashCheck->first()->hash;
+                        }
+                        #We generate a cookie to mark the user.
+                        Cookie::set($this->_cookieName, $hash, Cookie::get('remember/cookie_expire'));
+                        return true;
                     }
-                    #We generate a cookie to mark the user.
-                    Cookie::set($this->_cookieName, $hash, Cookie::get('remember/cookie_expire'));
-                    return true;
+                } else {
+                    throw new Exception("Incorrect Username or Password");
                 }
             } else {
                 throw new Exception("Incorrect Username or Password");
             }
-        } else {
-            throw new Exception("Incorrect Username or Password");
         }
     }
 
@@ -151,7 +155,7 @@ class Auth extends User
     //The method checks if there is any data which has been returned from the database.
     public function exists()
     {
-        return (empty($this->data())) ? false : true;
+        return (!empty($this->data())) ? true : false;
     }
 
     //Returns the current User state(i.e if he/she is Logged In or Not)
