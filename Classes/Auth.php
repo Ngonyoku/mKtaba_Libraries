@@ -84,7 +84,7 @@ class Auth extends User
 
     public function logIn($memberNumber = null, $password = null, $remember = false)
     {
-        $user = $this->find($memberNumber);
+        $user = $this->find($memberNumber); #Check if the user exists.
         if ($user) {
             if (password_verify($password, $this->data()->password)) {
                 Session::set($this->_sessionName, $this->data()->user_id); #Start the session
@@ -105,10 +105,13 @@ class Auth extends User
                     }
                     #We generate a cookie to mark the user.
                     Cookie::set($this->_cookieName, $hash, Cookie::get('remember/cookie_expire'));
+                    return true;
                 }
             } else {
-                echo "Invalid Password";
+                throw new Exception("Incorrect Username or Password");
             }
+        } else {
+            throw new Exception("Incorrect Username or Password");
         }
     }
 

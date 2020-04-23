@@ -14,10 +14,11 @@ if (Input::exists()) {
             $remember = (Input::get('remember') === 'on') ? true : false;
             $memberNumber = Input::get('member_number');
             $password = Input::get('password');
-            $user->logIn($memberNumber, $password, $remember);
-
-            if ($user) {
+            try {
+                $user->logIn($memberNumber, $password, $remember);
                 Redirect::to("index.php");
+            } catch (Exception $e) {
+                echo $e->getMessage();
             }
         } else {
             foreach ($valid->error() as $errName => $errValue) {
