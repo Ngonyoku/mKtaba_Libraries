@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Apr 17, 2020 at 10:12 AM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.2
+-- Host: 127.0.0.1
+-- Generation Time: Apr 22, 2020 at 08:18 PM
+-- Server version: 10.4.6-MariaDB
+-- PHP Version: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `mKtaba_Libraries`
+-- Database: `mktaba_libraries`
 --
 
 -- --------------------------------------------------------
@@ -171,8 +171,16 @@ CREATE TABLE `debtors` (
 CREATE TABLE `groups` (
   `group_id` int(11) NOT NULL,
   `group_name` varchar(15) NOT NULL,
-  `permissions` varchar(255) NOT NULL
+  `permissions` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `groups`
+--
+
+INSERT INTO `groups` (`group_id`, `group_name`, `permissions`) VALUES
+(1, 'Administrator', '{\"admin\":1}'),
+(2, 'Student', '{\"student\":1}');
 
 -- --------------------------------------------------------
 
@@ -196,11 +204,20 @@ CREATE TABLE `members` (
   `member_id` int(11) NOT NULL,
   `member_number` varchar(15) NOT NULL,
   `first_name` varchar(15) NOT NULL,
-  `last_name` int(15) NOT NULL,
+  `last_name` varchar(15) NOT NULL,
   `groups` varchar(15) NOT NULL,
-  `photo_url` varchar(255) NOT NULL,
-  `phone_number` varchar(13) NOT NULL
+  `photo_url` text NOT NULL,
+  `phone_number` varchar(13) NOT NULL,
+  `gender` varchar(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `members`
+--
+
+INSERT INTO `members` (`member_id`, `member_number`, `first_name`, `last_name`, `groups`, `photo_url`, `phone_number`, `gender`) VALUES
+(2, 'm16/3/004/19', 'Justin', 'Mutua', 'Student', '', '+254700000111', 'Male'),
+(1, 'n12/2/0015/16', 'Maggie', 'Wambui', 'Student', '', '+254700000111', 'Female');
 
 -- --------------------------------------------------------
 
@@ -486,6 +503,13 @@ CREATE TABLE `users` (
   `date_joined` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`user_id`, `member_number`, `password`, `date_joined`) VALUES
+(2, 'n12/2/0015/16', '$2y$10$0T8ZG4Ex1aKNGhzdfyYm3uGpIpPkNF/d8mlRR5lt9EblZLOyxlxyy', '2020-04-22 08:04:00');
+
 -- --------------------------------------------------------
 
 --
@@ -495,8 +519,7 @@ CREATE TABLE `users` (
 CREATE TABLE `users_session` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `hash` varchar(30) NOT NULL,
-  `value` varchar(70) NOT NULL
+  `hash` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -596,7 +619,8 @@ ALTER TABLE `members`
   ADD UNIQUE KEY `member_id` (`member_id`),
   ADD KEY `first_name` (`first_name`),
   ADD KEY `last_name` (`last_name`),
-  ADD KEY `groups` (`groups`);
+  ADD KEY `groups` (`groups`),
+  ADD KEY `gender` (`gender`);
 
 --
 -- Indexes for table `publishers`
@@ -679,7 +703,7 @@ ALTER TABLE `debtors`
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `group_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `group_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `library_sections`
@@ -691,7 +715,7 @@ ALTER TABLE `library_sections`
 -- AUTO_INCREMENT for table `members`
 --
 ALTER TABLE `members`
-  MODIFY `member_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `publishers`
@@ -709,7 +733,7 @@ ALTER TABLE `suppliers`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users_session`
@@ -774,6 +798,12 @@ ALTER TABLE `members`
 --
 ALTER TABLE `sub_category`
   ADD CONSTRAINT `sub_category_ibfk_1` FOREIGN KEY (`category_name`) REFERENCES `category` (`category_name`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`member_number`) REFERENCES `members` (`member_number`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `users_session`
