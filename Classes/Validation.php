@@ -47,7 +47,7 @@ class Validation
                         case 'max':
                             #Checks if input is above the Maximum value specified.
                             if (strlen($value) > $rule_value) {
-                                $this->addError("minError", "{$item} must have a minimum of {$rule_value} characters");
+                                $this->addError("maxError", "{$item} must have a minimum of {$rule_value} characters");
                             }
                             break;
                         case 'matches':

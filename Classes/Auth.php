@@ -72,11 +72,11 @@ class Auth extends User
                         throw new Exception("User Already Exists");
                     } else {
                         if (!$this->_dbh->insert('users', $fields)) { #..we Register the User
-                            throw new Exception(" Unable To create Account");
+                            throw new Exception(" Unable To create Account, please try again Later.");
                         }
                     }
                 } else {
-                    throw new Exception("Sorry But You are NOT REGISTERED as a MEMBER.");
+                    throw new Exception("Sorry But You are NOT REGISTERED as a MEMBER of the Library,<br> Please Contact Librarian for more Informtion.");
                 }
             }
         }
