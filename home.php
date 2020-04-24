@@ -4,6 +4,10 @@ if (Session::exists('Home')) {
     echo '<p>' . Session::flash('Home') . '</p>';
 }
 $user = new Auth();
+$_dbh = DataBaseHandler::getInstance();
+$getName = $_dbh->selectAll('members', array('member_number', '=', $user->data()->member_number));
+$firstName = $getName->first()->first_name;
+$lastName = $getName->first()->last_name;
 ?>
 <!DOCTYPE html>
 <html>
@@ -30,9 +34,9 @@ $user = new Auth();
         <a href="#"><i class="fas fa-cog"></i> Settings</a>
         <a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
     </div>
-
     <div class="content">
-        <h1>Hello <a href="#"><?php echo escape($user->data()->member_number); ?></a></h1>
+        <?php include 'Header.php';?>
+        <h1>Hello <a href="#"><?php echo escape($firstName . " " . $lastName); ?></a></h1>
     </div>
     <script src="Bootstrap/js/bootstrap.js"></script>
     <script src="Bootstrap/js/jquery.js"></script>

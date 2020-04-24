@@ -75,9 +75,13 @@ require_once 'Core/init.php';
                             <div class="form-group">
                                 <label for="password">Password</label>
                                 <input type="password" class="form-control" name="password" id="password" placeholder="Enter Your Password" required>
-                                <small class="text-muted"><?php echo PASSWORD_LIMIT;?></small>
+                                <small class="text-muted"><?php echo PASSWORD_LIMIT; ?></small>
                             </div>
-                            <br>
+                            <div class="form-group">
+                                <label for="remeber">
+                                    <input type="checkbox" name="remember"> Remember Me
+                                </label>
+                            </div>
                             <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
                             <input type="submit" class="btn btn-success" name="submit" value="SUBMIT">
                             <br><br>
