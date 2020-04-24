@@ -70,7 +70,6 @@ require_once 'Core/init.php';
                     }
                 } else {
                     foreach ($valid->error() as $key => $value) {
-                        // echo $errName . " : " . $errValue . "<br>";
                         $errName = $key;
                         $errValue = $value;
                     }
