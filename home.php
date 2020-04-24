@@ -19,21 +19,20 @@ $user = new Auth();
 </head>
 
 <body>
-    <!-- <h1>Hello <a href="#"><?php echo escape($user->data()->member_number); ?></a></h1>
-    <ul>
-        <li><a href="logout.php">Logout</a></li>
-    </ul> -->
-
     <div class="sidebar">
         <div class="logo">
-            <span class="text-success"><a href="#"><?php echo LOGO;?></a></span>
+            <span class="text-success"><a href="#"><?php echo LOGO; ?></a></span>
         </div>
-       <a href="home.php">Dashboard</a>
-       <a href="#">Books</a>
-       <a href="#">Borrowers</a>
-       <a href="#">Groups</a>
-       <a href="#">Members</a>
-       <a href="#">Users</a>
+        <a href="home.php" class="active"><i class="fas fa-home"></i>Dashboard</a>
+        <a href="#"><i class="fas fa-book"></i> Books</a>
+        <a href="#"><i class="fas fa-parachute-box"></i> Suppliers</a>
+        <a href="#"><i class="fas fa-users"></i>Members</a>
+        <a href="#"><i class="fas fa-cog"></i> Settings</a>
+        <a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+
+    <div class="content">
+        <h1>Hello <a href="#"><?php echo escape($user->data()->member_number); ?></a></h1>
     </div>
     <script src="Bootstrap/js/bootstrap.js"></script>
     <script src="Bootstrap/js/jquery.js"></script>
