@@ -33,6 +33,7 @@ spl_autoload_register(function ($class) {
 
 require_once 'Functions/Sanitize.php';
 require_once 'Functions/displayErrors.php';
+require_once 'Functions/constants.php';
 
 $session = Config::get('session/session_name');
 $cookie = Config::get('remember/cookie_name');

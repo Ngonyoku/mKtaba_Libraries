@@ -1,0 +1,66 @@
+body,
+        html {
+            height: 100%;
+            margin: 0;
+            background: #f7f7f7 ;
+        }
+
+        .wallpaper {
+            /* The image used */
+            background-image: url("Wallpapers/img3.wallpaper.jpg");
+
+            /* Full height */
+            height: 70%;
+
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            padding-top: 10px;
+        }
+
+        .wallpaper-full {
+            /* The image used */
+            background-image: url("Wallpapers/img1.wallpaper.jpg");
+
+            /* Full height */
+            height: 100%;
+
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            padding-top: 10%;
+        }
+
+        form {
+            background: #ffffff;
+            padding: 10%;
+            box-shadow: 2px 0px 10px #000000;
+            border-radius: 10px;
+        }
+
+        .shade-dark {
+            text-shadow: 8px 0px 10px #000000;
+        }
+
+        .shade-light {
+            text-shadow: 8px 0px 20px #ffffff;
+        }
+
+        .mg-all {
+            margin-left: 2.5px;
+            margin-right: 2.5px;
+            margin-top: 2.5px;
+            margin-bottom: 2.5px;
+        }
+
+        .mg-lr {
+            margin-left: 2.5px;
+            margin-right: 2.5px;
+        }
+
+        .mg-tb {
+            margin-top: 2.5px;
+            margin-bottom: 2.5px;
+        }

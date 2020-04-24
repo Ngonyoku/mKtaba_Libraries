@@ -11,39 +11,14 @@ require_once 'Core/init.php';
     <link rel="stylesheet" href="Bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="Custom.css">
     <link rel="stylesheet" href="Bootstrap/fonts/css/all.css">
-
-    <style>
-        body,
-        html {
-            height: 100%;
-            margin: 0;
-        }
-
-        .wallpaper {
-            /* The image used */
-            background-image: url("Images/Wallpapers/img3.wallpaper.jpg");
-
-            /* Full height */
-            height: 50%;
-
-            /* Center and scale the image nicely */
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            padding-top: 10px;
-        }
-
-        form {
-            background: #ffffff;
-            padding: 10%;
-            box-shadow: 2px 0px 10px #000000;
-            border-radius: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="Styles/index.css">
 </head>
 
 <body>
     <div class="wallpaper">
+        <div class="container">
+            <a class="navbar-brand text-success shade-dark" href="index.php"><?php echo LOGO; ?></a>
+        </div>
         <?php
         $exceptionError = $errName = $errValue = "";
         if (Input::exists()) {
@@ -82,7 +57,7 @@ require_once 'Core/init.php';
                 <div class="col-md-auto">
                     <div class="border">
                         <form action="" method="POST">
-                            <h5 class="text-success">mKtaba Libraraies</h5>
+                            <h5 class="text-success"><?php echo LOGO; ?></h5>
                             <h2>Create Account</h2>
                             <small class="text-success">You are only Elidgible To Create an Account If you are Registered as a Member of the Library</small>
                             <br>
@@ -100,13 +75,13 @@ require_once 'Core/init.php';
                             <div class="form-group">
                                 <label for="member_number">Identification Number</label>
                                 <input type="text" class="form-control" name="member_number" id="member_number" value="<?php echo escape(Input::get('member_number')); ?>" placeholder="Employee/Registration Number" required>
-                                <small class="text-muted">Identification Number Must have at least 12 Characters.</small>
+                                <small class="text-muted"><?php echo ID_LIMIT; ?></small>
                             </div>
                             <br>
                             <div class="form-group">
                                 <label for="password">Password</label>
                                 <input type="password" class="form-control" name="password" id="password" placeholder="Enter Your Password" required>
-                                <small class="text-muted">Password Must have at least 6 Characters.</small>
+                                <small class="text-muted"><?php echo PASSWORD_LIMIT; ?></small>
                             </div>
                             <br>
                             <div class="form-group">
