@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2020 at 08:18 PM
+-- Generation Time: Apr 28, 2020 at 10:49 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -508,6 +508,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `member_number`, `password`, `date_joined`) VALUES
+(4, 'm16/3/004/19', '$2y$10$J15hJlzavgEV2SDHRQkMHu16nLWs92Xm5/EIsrRsgBr4qd9gk6jI2', '2020-04-23 05:04:00'),
 (2, 'n12/2/0015/16', '$2y$10$0T8ZG4Ex1aKNGhzdfyYm3uGpIpPkNF/d8mlRR5lt9EblZLOyxlxyy', '2020-04-22 08:04:00');
 
 -- --------------------------------------------------------
@@ -521,6 +522,13 @@ CREATE TABLE `users_session` (
   `user_id` int(11) NOT NULL,
   `hash` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `users_session`
+--
+
+INSERT INTO `users_session` (`id`, `user_id`, `hash`) VALUES
+(15, 2, '014e02c4e8abe51a27676c7522f67d');
 
 --
 -- Indexes for dumped tables
@@ -733,13 +741,13 @@ ALTER TABLE `suppliers`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users_session`
 --
 ALTER TABLE `users_session`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Constraints for dumped tables
