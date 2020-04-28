@@ -1,66 +1,62 @@
 body,
-        html {
-            height: 100%;
-            margin: 0;
-            background: #f7f7f7 ;
-        }
+html {
+    height: 100%;
+    margin: 0;
+    background: #f7f7f7;
+}
 
-        .wallpaper {
-            /* The image used */
-            background-image: url("Wallpapers/img3.wallpaper.jpg");
+.wallpaper {
+    /* The image used */
+    background-image: url("Wallpapers/img3.wallpaper.jpg");
+    /* Full height */
+    height: 70%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 10px;
+}
 
-            /* Full height */
-            height: 70%;
+.wallpaper-full {
+    /* The image used */
+    background-image: url("Wallpapers/img1.wallpaper.jpg");
+    /* Full height */
+    height: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 10%;
+}
 
-            /* Center and scale the image nicely */
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            padding-top: 10px;
-        }
+.border form {
+    background: #ffffff;
+    padding: 10%;
+    box-shadow: 2px 0px 10px #000000;
+    border-radius: 10px;
+}
 
-        .wallpaper-full {
-            /* The image used */
-            background-image: url("Wallpapers/img1.wallpaper.jpg");
+.shade-dark {
+    text-shadow: 8px 0px 10px #000000;
+}
 
-            /* Full height */
-            height: 100%;
+.shade-light {
+    text-shadow: 8px 0px 20px #ffffff;
+}
 
-            /* Center and scale the image nicely */
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            padding-top: 10%;
-        }
+.mg-all {
+    margin-left: 2.5px;
+    margin-right: 2.5px;
+    margin-top: 2.5px;
+    margin-bottom: 2.5px;
+}
 
-        form {
-            background: #ffffff;
-            padding: 10%;
-            box-shadow: 2px 0px 10px #000000;
-            border-radius: 10px;
-        }
+.mg-lr {
+    margin-left: 2.5px;
+    margin-right: 2.5px;
+}
 
-        .shade-dark {
-            text-shadow: 8px 0px 10px #000000;
-        }
-
-        .shade-light {
-            text-shadow: 8px 0px 20px #ffffff;
-        }
-
-        .mg-all {
-            margin-left: 2.5px;
-            margin-right: 2.5px;
-            margin-top: 2.5px;
-            margin-bottom: 2.5px;
-        }
-
-        .mg-lr {
-            margin-left: 2.5px;
-            margin-right: 2.5px;
-        }
-
-        .mg-tb {
-            margin-top: 2.5px;
-            margin-bottom: 2.5px;
-        }
+.mg-tb {
+    margin-top: 2.5px;
+    margin-bottom: 2.5px;
+}

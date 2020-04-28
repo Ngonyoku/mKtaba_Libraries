@@ -98,7 +98,6 @@ body {
     transition: 0.4s;
 }
 
-.active,
 .accordion:hover {
     background-color: #555;
     color: #ffffff;
@@ -141,14 +140,28 @@ div.content {
 
 @media screen and (max-width: 400px) {
     .sidebar a {
-        text-align: center;
         float: left;
     }
     .sidebar a:hover:not(.active) {
         color: white;
     }
-    .sidebar .accordion {
-        text-align: center;
+    .accordion {
+        /* text-align: center; */
+        float: none;
+    }
+    .panel {
+        display: none;
+        background-color: #000000;
+        overflow: hidden;
+    }
+    .panel a {
+        display: block;
+        color: #ffffff;
+    }
+    .panel a:active {
+        background-color: #4CAF50;
+        color: white;
+        border-left: 2px solid #ffffff;
         float: left;
     }
 }

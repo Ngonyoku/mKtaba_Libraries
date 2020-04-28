@@ -2,7 +2,7 @@
     <div class="logo">
         <span class="text-success"><a href="#"><?php echo LOGO; ?></a></span>
     </div>
-    <a href="#" class="accordion"><i class="fas fa-home"></i> Dashboard</a>
+    <a href="home.php" class="accordion"><i class="fas fa-home"></i> Dashboard</a>
     <div class="panel"></div>
 
     <button class="accordion"><i class="fas fa-book"></i> Books</button>
@@ -11,7 +11,7 @@
     <button class="accordion"><i class="fas fa-users"></i> Members</button>
     <div class="panel">
         <a href="#">Manage Users</a>
-        <a href="#">Add Members</a>
+        <a href="members.php">Add Members</a>
     </div>
 
     <button class="accordion"><i class="fas fa-users"></i> Groups</button>
@@ -23,6 +23,6 @@
     <button class="accordion"><i class="fas fa-cog"></i> Settings</button>
     <div class="panel"></div>
 
-    <a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    <a href="logout.php" class="accordion"><i class="fas fa-sign-out-alt"></i> Logout</a>
     <div class="panel"></div>
 </div>
