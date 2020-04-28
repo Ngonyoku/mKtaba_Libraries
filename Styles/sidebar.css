@@ -27,13 +27,14 @@ body {
     color: #4CAF50;
 }
 
-.sidebar a {
+
+/* .sidebar a {
     display: block;
     color: #bdb8d7;
     padding: 16px;
     text-decoration: none;
-    /* border-top: 1px solid rgba(225, 225, 225, 0.2);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2); */
+    border-top: 1px solid rgba(225, 225, 225, 0.2);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .sidebar a.active {
@@ -49,6 +50,72 @@ body {
 .sidebar a:hover:not(.active) {
     background-color: #555;
     color: white;
+} */
+
+.sidebar button {
+    display: block;
+    color: #bdb8d7;
+    padding: 16px;
+    text-decoration: none;
+    /* border-top: 1px solid rgba(225, 225, 225, 0.2);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2); */
+}
+
+.sidebar a {
+    display: block;
+    color: #bdb8d7;
+    padding: 16px;
+    text-decoration: none;
+    /* border-top: 1px solid rgba(225, 225, 225, 0.2);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2); */
+}
+
+.sidebar a.active {
+    background-color: #4CAF50;
+    color: white;
+    border-left: 2px solid #ffffff;
+}
+
+.sidebar a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+}
+
+.sidebar i {
+    width: 25px;
+}
+
+.accordion {
+    background-color: transparent;
+    color: #bdb8d7;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+.active,
+.accordion:hover {
+    background-color: #555;
+    color: #ffffff;
+}
+
+.panel {
+    padding: 0 18px;
+    display: none;
+    background-color: transparent;
+    color: #ffff;
+    overflow: hidden;
+}
+
+.sidebar .panel a:active {
+    background-color: #4CAF50;
+    color: white;
+    border-left: 2px solid #ffffff;
 }
 
 div.content {
@@ -61,7 +128,10 @@ div.content {
         height: auto;
         position: relative;
     }
-    .sidebar a {
+    /* .sidebar a {
+        float: left;
+    } */
+    .sidebar .accordion {
         float: left;
     }
     div.content {
@@ -74,4 +144,20 @@ div.content {
         text-align: center;
         float: left;
     }
+    .sidebar a:hover:not(.active) {
+        color: white;
+    }
+    .sidebar .accordion {
+        text-align: center;
+        float: left;
+    }
+}
+
+.hide {
+    display: none;
+}
+
+.option:hover+.hide {
+    display: block;
+    color: #bdb8d7;
 }

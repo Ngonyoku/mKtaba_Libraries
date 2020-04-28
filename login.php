@@ -1,5 +1,9 @@
 <?php
 require_once 'Core/init.php';
+$user = new Auth();
+if ($user->isLoggedIn()) {
+    Redirect::to("home.php");
+} else {
 ?>
 <!DOCTYPE html>
 <html>
@@ -102,3 +106,6 @@ require_once 'Core/init.php';
 </body>
 
 </html>
+
+<?php
+}
