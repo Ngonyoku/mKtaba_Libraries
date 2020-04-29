@@ -1,8 +1,8 @@
 <?php
 require_once 'Core/init.php';
-if (Session::exists('Home')) {
-    echo '<p>' . Session::flash('Home') . '</p>';
-}
+// if (Session::exists('Home')) {
+//     echo '<p>' . Session::flash('Home') . '</p>';
+// }
 $user = new Auth();
 if (!$user->isLoggedIn()) {
     Redirect::to("index.html");

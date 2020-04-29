@@ -1,8 +1,8 @@
 <?php
 require_once 'Core/init.php';
-if (Session::exists('Home')) {
-    echo '<p>' . Session::flash('Home') . '</p>';
-}
+// if (Session::exists('Home')) {
+//     echo '<p>' . Session::flash('Home') . '</p>';
+// }
 $user = new Auth();
 if (!$user->isLoggedIn()) {
     Redirect::to("index.html");
@@ -34,6 +34,7 @@ if (!$user->isLoggedIn()) {
         <?php include 'Header.php'; ?>
 
         <?php
+        $exceptionError = $errName = $errValue = "";
         if (Input::exists()) {
             if (Token::check(Input::get('token'))) {
                 $valid = new Validation();
@@ -46,6 +47,35 @@ if (!$user->isLoggedIn()) {
                     'group' => array('required' => true),
                     'gender' => array('required' => true)
                 ));
+
+                if ($valid->passed()) {
+                    $member = new Members();
+                    if (Input::get('gender') != "---") {
+                        $gender = Input::get('gender');
+                    }
+                    if (Input::get('group') != "---") {
+                        $group = Input::get('group');
+                    }
+                    try {
+                        $member->add(array(
+                            'member_number' => Input::get('member_number'),
+                            'first_name' => Input::get('first_name'),
+                            'last_name' => Input::get('last_name'),
+                            'groups' => $group,
+                            // 'photo_url' => Input::get('group'),
+                            'phone_number' => Input::get('phone'),
+                            'email' => Input::get('emailAddress'),
+                            'gender' => $gender
+                        ));
+                    } catch (Exception $e) {
+                        $exceptionError = $e;
+                    }
+                } else {
+                    foreach ($valid->error() as $key => $value) {
+                        $errName = $key;
+                        $errValue = $value;
+                    }
+                }
             }
         }
         ?>
@@ -64,19 +94,26 @@ if (!$user->isLoggedIn()) {
                 <!-- Add User Form -->
                 <div class="container col-sm-6">
                     <form action="" method="post">
+                        <?php
+                        if ($exceptionError) {
+                        ?>
+
+                        <?php
+                        }
+                        ?>
                         <div class="form-group">
                             <label for="member_number">Identification Number</label>
-                            <input type="text" class="form-control" name="member_number" id="member_number" value="<?php echo escape(Input::get('member_number')); ?>" placeholder="Employee/Registration Number" required>
+                            <input type="text" class="form-control" name="member_number" id="member_number" placeholder="Employee/Registration Number" required>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="first_name">First Name</label>
-                                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name">
+                                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name" required>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="last_name">Last Name</label>
-                                <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name">
+                                <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name" required>
                             </div>
                         </div>
 
