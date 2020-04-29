@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 28, 2020 at 10:49 PM
+-- Generation Time: Apr 30, 2020 at 01:39 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -208,6 +208,7 @@ CREATE TABLE `members` (
   `groups` varchar(15) NOT NULL,
   `photo_url` text NOT NULL,
   `phone_number` varchar(13) NOT NULL,
+  `email` varchar(80) NOT NULL,
   `gender` varchar(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -215,9 +216,12 @@ CREATE TABLE `members` (
 -- Dumping data for table `members`
 --
 
-INSERT INTO `members` (`member_id`, `member_number`, `first_name`, `last_name`, `groups`, `photo_url`, `phone_number`, `gender`) VALUES
-(2, 'm16/3/004/19', 'Justin', 'Mutua', 'Student', '', '+254700000111', 'Male'),
-(1, 'n12/2/0015/16', 'Maggie', 'Wambui', 'Student', '', '+254700000111', 'Female');
+INSERT INTO `members` (`member_id`, `member_number`, `first_name`, `last_name`, `groups`, `photo_url`, `phone_number`, `email`, `gender`) VALUES
+(3, 'm12/2/1000/015', 'Sydney', 'Gacheru', 'Student', '', '0712345678', 'syd@test.com', 'Male'),
+(2, 'm16/3/004/19', 'Justin', 'Mutua', 'Student', '', '+254700000111', 'mutua@test.com', 'Male'),
+(4, 'n12/2/0010/18', 'Charice', 'Achieng', 'Student', '', '0712345678', 'achieng@test.com', 'Female'),
+(1, 'n12/2/0015/16', 'Maggie', 'Wambui', 'Student', '', '+254700000111', 'maggie@test.com', 'Female'),
+(7, 'n16/3/0152/18', 'Jayson', 'Mumo', 'Student', '', '0789456123', 'jayson@test.com', 'Male');
 
 -- --------------------------------------------------------
 
@@ -508,6 +512,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `member_number`, `password`, `date_joined`) VALUES
+(6, 'm12/2/1000/015', '$2y$10$2NmwDMAcL6SHpTXoO2IQSO6m.VDkPivRryd1ViAqy7DFCbKlgbb3G', '2020-04-30 12:04:00'),
 (4, 'm16/3/004/19', '$2y$10$J15hJlzavgEV2SDHRQkMHu16nLWs92Xm5/EIsrRsgBr4qd9gk6jI2', '2020-04-23 05:04:00'),
 (2, 'n12/2/0015/16', '$2y$10$0T8ZG4Ex1aKNGhzdfyYm3uGpIpPkNF/d8mlRR5lt9EblZLOyxlxyy', '2020-04-22 08:04:00');
 
@@ -528,7 +533,7 @@ CREATE TABLE `users_session` (
 --
 
 INSERT INTO `users_session` (`id`, `user_id`, `hash`) VALUES
-(15, 2, '014e02c4e8abe51a27676c7522f67d');
+(23, 6, 'a8b7ab5353933835b922959d4e6348');
 
 --
 -- Indexes for dumped tables
@@ -723,7 +728,7 @@ ALTER TABLE `library_sections`
 -- AUTO_INCREMENT for table `members`
 --
 ALTER TABLE `members`
-  MODIFY `member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `publishers`
@@ -741,13 +746,13 @@ ALTER TABLE `suppliers`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users_session`
 --
 ALTER TABLE `users_session`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- Constraints for dumped tables

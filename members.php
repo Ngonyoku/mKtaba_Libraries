@@ -34,7 +34,7 @@ if (!$user->isLoggedIn()) {
         <?php include 'Header.php'; ?>
 
         <?php
-        $exceptionError = $errName = $errValue = "";
+        $exceptionError = $errName = $errValue = $groupErr = $genderErr = "";
         if (Input::exists()) {
             if (Token::check(Input::get('token'))) {
                 $valid = new Validation();
@@ -50,10 +50,10 @@ if (!$user->isLoggedIn()) {
 
                 if ($valid->passed()) {
                     $member = new Members();
-                    if (Input::get('gender') != "---") {
+                    if (!empty(Input::get('gender'))) {
                         $gender = Input::get('gender');
                     }
-                    if (Input::get('group') != "---") {
+                    if (!empty(Input::get('group'))) {
                         $group = Input::get('group');
                     }
                     try {
@@ -97,7 +97,24 @@ if (!$user->isLoggedIn()) {
                         <?php
                         if ($exceptionError) {
                         ?>
-
+                            <div class="alert alert-danger alert-dismissible">
+                                <button class="close" type="button" data-dismiss="alert">&times;</button>
+                                <?php echo $exceptionError; ?>
+                            </div>
+                        <?php
+                        } elseif (!empty($errValue)) {
+                        ?>
+                            <div class="alert alert-danger alert-dismissible">
+                                <button class="close" type="button" data-dismiss="alert">&times;</button>
+                                <?php echo $errValue; ?>
+                            </div>
+                        <?php
+                        } elseif (!empty($errValue)) {
+                        ?>
+                            <div class="alert alert-danger alert-dismissible">
+                                <button class="close" type="button" data-dismiss="alert">&times;</button>
+                                <?php echo $errValue; ?>
+                            </div>
                         <?php
                         }
                         ?>
@@ -130,8 +147,8 @@ if (!$user->isLoggedIn()) {
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="group">Group</label>
-                                <select name="group" id="group" class="custom-select">
-                                    <option value="None">---</option>
+                                <select name="group" id="group" class="custom-select" required>
+                                    <option value="">---</option>
                                     <option value="Student">Student</option>
                                     <option value="Staff">Staff</option>
                                     <option value="Staff">Admin</option>
@@ -139,8 +156,8 @@ if (!$user->isLoggedIn()) {
                             </div>
                             <div class="form-group col-sm-4">
                                 <label for="gender">Gender</label>
-                                <select name="gender" id="gender" class="custom-select">
-                                    <option value="None">---</option>
+                                <select name="gender" id="gender" class="custom-select" required>
+                                    <option value="">---</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                     <option value="Other">Other</option>
