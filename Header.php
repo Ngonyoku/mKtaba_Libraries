@@ -8,7 +8,7 @@
         <ul class="navbar-nav">
             <li class="nav-link">
                 <a href="#" data-toggle="popover" title="USER" data-content="Some Content">
-                    <img src="Styles/Wallpapers/img1.wallpaper.jpg" class="rounded-circle" width="35px" height="30px" alt="">
+                    <img src="Images/UserAvatars/noUserImage.png" class="rounded-circle" width="35px" height="30px" alt="">
                 </a>
             </li>
         </ul>
