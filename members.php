@@ -202,17 +202,22 @@ if (!$user->isLoggedIn()) {
                 <td>Gender</td>
             </tr>
             <?php 
-            for ($i = 1; $i < 50; $i++) {
+            $dbh = DataBaseHandler::getInstance();
+            $sql = "SELECT * FROM members";
+            $query = $dbh->getPDO()->query($sql);
+            $query->setFetchMode(PDO::FETCH_ASSOC);
+
+            while ($result = $query->fetch()) {
             ?>
             <tr class="text-muted">
-                <td><?php echo $i;?></td>
-                <td>N12/2/1006/015</td>
-                <td>Morio</td>
-                <td>Fulani</td>
-                <td>Student</td>
-                <td>morio@gmail.com</td>
-                <td>0712345698</td>
-                <td>Other</td>
+                <td><?php echo $result["member_id"];?></td>
+                <td><?php echo $result["member_number"];?></td>
+                <td><?php echo $result["first_name"];?></td>
+                <td><?php echo $result["last_name"];?></td>
+                <td><?php echo $result["groups"];?></td>
+                <td><?php echo $result["email"];?></td>
+                <td><?php echo $result["phone_number"];?></td>
+                <td><?php echo $result["gender"];?></td>
             </tr>
             <?php
             }
