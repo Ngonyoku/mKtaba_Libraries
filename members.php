@@ -1,8 +1,5 @@
 <?php
 require_once 'Core/init.php';
-// if (Session::exists('Home')) {
-//     echo '<p>' . Session::flash('Home') . '</p>';
-// }
 $user = new Auth();
 if (!$user->isLoggedIn()) {
     Redirect::to("index.html");
@@ -39,7 +36,7 @@ if (!$user->isLoggedIn()) {
             if (Token::check(Input::get('token'))) {
                 $valid = new Validation();
                 $valid->validate($_POST, array(
-                    'member_number' => array('required' => true),
+                    'member_number' => array('required' => true, 'min' => 12, 'max' => 15),
                     'first_name' => array('required' => true),
                     'last_name' => array('required' => true),
                     'phone' => array('required' => true),
@@ -56,6 +53,9 @@ if (!$user->isLoggedIn()) {
                     if (!empty(Input::get('group'))) {
                         $group = Input::get('group');
                     }
+                    if ($valid->validEmail(Input::get('emailAddress'))) {
+                        $email = Input::get('emailAddress');
+                    }
                     
                     try {
                         $member->add(array(
@@ -65,7 +65,7 @@ if (!$user->isLoggedIn()) {
                             'groups' => $group,
                             // 'photo_url' => Input::get('group'),
                             'phone_number' => Input::get('phone'),
-                            'email' => Input::get('emailAddress'),
+                            'email' => $email,
                             'gender' => $gender
                         ));
                     } catch (Exception $e) {
@@ -122,26 +122,28 @@ if (!$user->isLoggedIn()) {
                     <div class="form-group">
                         <label for="member_number">Identification Number</label>
                         <input type="text" class="form-control" name="member_number" id="member_number"
-                            placeholder="Employee/Registration Number" required>
+                            placeholder="Employee/Registration Number" value="<?php echo Input::get('member_number');?>"
+                            required>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="first_name">First Name</label>
                             <input type="text" class="form-control" id="first_name" name="first_name"
-                                placeholder="First Name" required>
+                                placeholder="First Name" value="<?php echo Input::get('first_name')?>" required>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="last_name">Last Name</label>
                             <input type="text" class="form-control" id="last_name" name="last_name"
-                                placeholder="Last Name" required>
+                                placeholder="Last Name" value="<?php echo Input::get('first_name')?>" required>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="emailAddress">Email Address</label>
                         <input type="email" class="form-control" name="emailAddress" id="emailAddress"
-                            placeholder="Enter Your Personal Email Address" required>
+                            placeholder="Enter Your Personal Email Address"
+                            value="<?php echo Input::get('emailAddress')?>" required>
                         <small class="text-muted">Minimum of 5 characters and not more than 80</small>
                     </div>
 
@@ -149,7 +151,7 @@ if (!$user->isLoggedIn()) {
                         <div class="form-group col-md-4">
                             <label for="phone">Phone Number</label>
                             <input type="text" name="phone" id="phone" class="form-control" placeholder="Phone Number"
-                                required>
+                                value="<?php echo Input::get('phone')?>" required>
                         </div>
 
                         <div class="form-group col-md-4">
@@ -158,7 +160,7 @@ if (!$user->isLoggedIn()) {
                                 <option value="">---</option>
                                 <option value="Student">Student</option>
                                 <option value="Staff">Staff</option>
-                                <option value="Admin">Admin</option>
+                                <option value="Staff">Admin</option>
                             </select>
                         </div>
 
@@ -187,7 +189,7 @@ if (!$user->isLoggedIn()) {
     <div class="container table-responsive">
         <table class="table table-bordered table-hover ">
             <tr class="table-success text-success">
-
+                <td>ID</td>
                 <td>Identification Number</td>
                 <td>First Name</td>
                 <td>Last Name</td>
@@ -195,18 +197,17 @@ if (!$user->isLoggedIn()) {
                 <td>Email</td>
                 <td>Contact</td>
                 <td>Gender</td>
-                <td>Update</td>
-                <td>Delete</td>
             </tr>
             <?php 
             $dbh = DataBaseHandler::getInstance();
-            $sql = "SELECT * FROM members ORDER BY member_number";
+            $sql = "SELECT * FROM members";
             $query = $dbh->getPDO()->query($sql);
             $query->setFetchMode(PDO::FETCH_ASSOC);
 
             while ($result = $query->fetch()) {
             ?>
             <tr class="text-muted">
+                <td><?php echo $result["member_id"];?></td>
                 <td><?php echo $result["member_number"];?></td>
                 <td><?php echo $result["first_name"];?></td>
                 <td><?php echo $result["last_name"];?></td>
@@ -214,8 +215,6 @@ if (!$user->isLoggedIn()) {
                 <td><?php echo $result["email"];?></td>
                 <td><?php echo $result["phone_number"];?></td>
                 <td><?php echo $result["gender"];?></td>
-                <td><i class="fas fa-edit"></i></td>
-                <td><i class="fas fa-trash text-danger"></i></td>
             </tr>
             <?php
             }
