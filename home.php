@@ -9,11 +9,11 @@ if (!$user->isLoggedIn()) {
     $getName = $_dbh->selectAll('members', array('member_number', '=', $user->data()->member_number));
     $firstName = $getName->first()->first_name;
     $lastName = $getName->first()->last_name;
-    include 'Header.php';
-    include 'sidebar.php';
+    include 'Layouts/Header.php';
+    include 'Layouts/sidebar.php';
 ?>
     <div class="content">
-        <?php include 'navbar.php'; ?>
+        <?php include 'Layouts/navbar.php'; ?>
         <div class="container-fluid">
             <h1>Hello <a href="#" class="text-success"><?php echo escape($firstName . " " . $lastName); ?></a></h1>
         </div>
@@ -73,5 +73,5 @@ if (!$user->isLoggedIn()) {
         </div>
     </div>
 <?php
- require 'Footer.php';
+ require 'Layouts/Footer.php';
 }

@@ -9,12 +9,12 @@ if (!$user->isLoggedIn()) {
 
     <!-- Side Bar File -->
     <?php
-    require 'Header.php';
-    include 'sidebar.php';
+    require 'Layouts/Header.php';
+    include 'Layouts/sidebar.php';
     ?>
     <div class="content">
         <!--header File -->
-        <?php include 'navbar.php'; ?>
+        <?php include 'Layouts/navbar.php'; ?>
 
         <?php
         $exceptionError = $errName = $errValue = $groupErr = $genderErr = "";
@@ -204,5 +204,5 @@ if (!$user->isLoggedIn()) {
         <!-- End of Member Table -->
     </div>
 <?php
-    require 'Footer.php';
+    require 'Layouts/Footer.php';
 }
