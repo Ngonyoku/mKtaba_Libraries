@@ -10,7 +10,7 @@
 
     <button class="accordion"><i class="fas fa-users"></i> Members</button>
     <div class="panel">
-        <a href="#">Manage Users</a>
+        <a href="users.php">Manage Users</a>
         <a href="members.php">Add Members</a>
     </div>
 

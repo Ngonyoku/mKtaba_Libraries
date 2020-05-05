@@ -9,8 +9,8 @@ if (!$user->isLoggedIn()) {
     $getName = $_dbh->selectAll('members', array('member_number', '=', $user->data()->member_number));
     $firstName = $getName->first()->first_name;
     $lastName = $getName->first()->last_name;
-    include 'Layouts/Header.php';
-    include 'Layouts/sidebar.php';
+    require 'Layouts/Header.php';
+    require 'Layouts/sidebar.php';
 ?>
     <div class="content">
         <?php include 'Layouts/navbar.php'; ?>
@@ -73,5 +73,5 @@ if (!$user->isLoggedIn()) {
         </div>
     </div>
 <?php
- require 'Layouts/Footer.php';
+    require 'Layouts/Footer.php';
 }

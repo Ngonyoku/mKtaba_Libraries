@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 30, 2020 at 01:39 AM
+-- Generation Time: May 05, 2020 at 11:03 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -217,6 +217,8 @@ CREATE TABLE `members` (
 --
 
 INSERT INTO `members` (`member_id`, `member_number`, `first_name`, `last_name`, `groups`, `photo_url`, `phone_number`, `email`, `gender`) VALUES
+(16, 'E001-101010-007', 'Uhuru', 'Muigai', 'Student', '', '0712345678', 'muigai@test.com', 'Male'),
+(11, 'j16/2/1005/16', 'Jackline', 'Mumbi', 'Student', '', '+254712345679', 'jackie@test.com', 'Other'),
 (3, 'm12/2/1000/015', 'Sydney', 'Gacheru', 'Student', '', '0712345678', 'syd@test.com', 'Male'),
 (2, 'm16/3/004/19', 'Justin', 'Mutua', 'Student', '', '+254700000111', 'mutua@test.com', 'Male'),
 (4, 'n12/2/0010/18', 'Charice', 'Achieng', 'Student', '', '0712345678', 'achieng@test.com', 'Female'),
@@ -533,7 +535,7 @@ CREATE TABLE `users_session` (
 --
 
 INSERT INTO `users_session` (`id`, `user_id`, `hash`) VALUES
-(23, 6, 'a8b7ab5353933835b922959d4e6348');
+(27, 2, '098f6e05c12cb4d2d6b6243b86162d');
 
 --
 -- Indexes for dumped tables
@@ -728,7 +730,7 @@ ALTER TABLE `library_sections`
 -- AUTO_INCREMENT for table `members`
 --
 ALTER TABLE `members`
-  MODIFY `member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `publishers`
@@ -752,7 +754,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users_session`
 --
 ALTER TABLE `users_session`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- Constraints for dumped tables

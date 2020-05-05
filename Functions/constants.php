@@ -14,4 +14,7 @@ switch (basename($_SERVER['PHP_SELF'])) {
     case 'members.php';
         $pageName = "Add Members";
         break;
+    case 'users.php';
+        $pageName = "Manage Users";
+        break;
 }
