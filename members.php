@@ -5,6 +5,11 @@ $user = new Auth();
 if (!$user->isLoggedIn()) {
     Redirect::to("index.html");
 } else {
+    $dbh = DataBaseHandler::getInstance();
+    $sql = "SELECT * FROM members ORDER BY member_id";
+    $query = $dbh->getPDO()->query($sql);
+    $query->setFetchMode(PDO::FETCH_ASSOC);
+    $rows = $query->rowCount();
 ?>
 
     <!-- Side Bar File -->
@@ -166,6 +171,7 @@ if (!$user->isLoggedIn()) {
 
         <!-- Member Table -->
         <div class="container table-responsive">
+            <span>Total Members : <b class="text-success"><?php echo $rows; ?></b></span>
             <table class="table table-bordered table-hover ">
                 <tr class="table-success text-success">
                     <td>ID</td>
@@ -178,11 +184,6 @@ if (!$user->isLoggedIn()) {
                     <td>Gender</td>
                 </tr>
                 <?php
-                $dbh = DataBaseHandler::getInstance();
-                $sql = "SELECT * FROM members";
-                $query = $dbh->getPDO()->query($sql);
-                $query->setFetchMode(PDO::FETCH_ASSOC);
-
                 while ($result = $query->fetch()) {
                 ?>
                     <tr class="text-muted">

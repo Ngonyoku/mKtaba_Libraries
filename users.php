@@ -28,12 +28,12 @@ if (!$user->isLoggedIn()) {
                             $query = $dbh->getPDO()->query($sql);
                             $query->setFetchMode(PDO::FETCH_ASSOC);
 
-                            while ($result = $query->fetch()) {
+                            while ($results = $query->fetch()) {
                             ?>
                                 <tr class="text-muted">
-                                    <td><?php echo $result["member_number"]; ?></td>
-                                    <td><?php echo $result["first_name"]; ?></td>
-                                    <td><?php echo $result["last_name"]; ?></td>
+                                    <td><?php echo $results["member_number"]; ?></td>
+                                    <td><?php echo $results["first_name"]; ?></td>
+                                    <td><?php echo $results["last_name"]; ?></td>
                                 </tr>
                             <?php
                             }
